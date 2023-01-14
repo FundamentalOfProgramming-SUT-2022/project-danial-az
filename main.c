@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #define root "C:\\Users\\Danial\\Desktop\\root"
+#define root1 "C:\\Users\\Danial\\Desktop"
 
 
 struct savedirandfile{
@@ -49,7 +50,44 @@ char op[1000];
 else
     printf("wrong address.");
 }
+void getcat(){
+char a[2000];
+int io=1;
+getchar();
+scanf("%c",&a[0]);
+if(a[0]=='"'){
 
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]=='"')
+            break;
+        io++;
+    }
+    char op[1000];
+    for(int i=1;i<io;i++)
+        op[i-1]=a[i];
+    cat(op);
+}
+else if(a[0]=='r'){
+
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]=='\n'){
+            break;
+            }
+        io++;
+    }
+char op[1000];
+    for(int i=0;i<io;i++)
+        op[i]=a[i];
+    cat(op);
+}
+else
+    printf("wrong address.");
+
+
+}
 int existfile(const char* name){
 DIR* dir = opendir(name);
 if (dir) {
@@ -120,6 +158,41 @@ fclose(ptr);
 
 }
 
+void cat(char *esmfile){
+char *took;
+char ro[]=root;
+int contersaved=0;
+took=strtok(esmfile,"/");
+while(took!=NULL){
+
+    if(contersaved!=0){
+        strcat(ro,"\\");
+        strcat(ro,took);
+    }
+
+    took=strtok(NULL,"/");
+    contersaved++;
+}
+FILE *ptr=fopen(ro,"r");
+if(ptr==NULL){
+    printf("this file not exist");
+    return;}
+else{
+    char str[1000];
+    while(fgets(str,1000,ptr)!=NULL){
+        printf("%s",str);
+        if(str[strlen(str) - 1] != '\n')
+            printf("\n");
+            }
+
+fclose(ptr);
+
+    }
+
+}
+
+
+
 
 
 int main(){
@@ -133,7 +206,19 @@ scanf("%s",yoi);
 
 if(strcmp(yoi,"--file")==0)
     getcrf();
+else
+    printf("invalid input");
 }
+if(strcmp(vorodi,"cat")==0){
+  char yoi[10];
+scanf("%s",yoi);
+
+if(strcmp(yoi,"--file")==0)
+    getcat();
+else
+    printf("invalid input");
+}
+
 return 0;
 
 }

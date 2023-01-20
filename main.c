@@ -105,7 +105,7 @@ if(a[0]=='"'){
 
     for(int i=1;i<io;i++)
         op[i-1]=a[i];
-
+op[io]='\0';
 }
 else if(a[0]=='r'){
 
@@ -120,11 +120,11 @@ else if(a[0]=='r'){
 
     for(int i=0;i<io;i++)
         op[i]=a[i];
-
+op[io]='\0';
 }
 else
     printf("wrong address.\n");
-printf("%s\n",op);
+
 char pi[15];
 getchar();
 scanf("%s",pi);
@@ -135,19 +135,54 @@ io=1;
 getchar();
 scanf("%c",&au[0]);
 if(au[0]=='"'){
-
+int f=0;
     while(1){
        scanf("%c",&au[io]);
-        if(pip[io]=='"')
+       if(au[io]=='\\'){
+        f=2;
+       }
+        if(au[io]=='"'&&f==0)
             break;
         io++;
+        if(f>0)
+            f--;
     }
 
     for(int i=1;i<io;i++)
         pip[i-1]=au[i];
         getchar();
+        int h=0;
+for(int i=0;i<io;i++)
+        {
+            if(pip[i]=='\\')
+            {   if(pip[i+1]=='\\'){
+                pip[i]='\\';
+                for(int j=i+1;j<io;j++)
+                    pip[j]=pip[j+1];
+                    h=2;
+
+                    }
+                else if(pip[i+1]=='"'){
+                    pip[i]='"';
+                    for(int j=i+1;j<io;j++)
+                        pip[j]=pip[j+1];
+                }
+
+
+                else if(pip[i+1]=='n'&&h==0){
+                pip[i]='\n';
+                for(int j=i+1;j<io;j++)
+                    pip[j]=pip[j+1];
+
+
+            }}
+            if(h>0)
+                h--;
+
+        }
 
 }
+
 else{
 
 
@@ -163,7 +198,7 @@ else{
         pip[i]=au[i];
 
 }
-printf("%s %s",op,pip);
+
 char posi[20];
 scanf("%s",posi);
 if(strcmp(posi,"--pos")==0)
@@ -292,6 +327,7 @@ fclose(ptr);
 
 int insertinfile( char *add,char *str, int line, int pos)
 {
+
 char *took;
 char ro[]=root;
 int contersaved=0;

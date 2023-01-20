@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #define root "C:\\Users\\Danial\\Desktop\\root"
-#define root1 "C:\\Users\\Danial\\Desktop"
+
 
 
 struct savedirandfile{
@@ -48,7 +48,7 @@ char op[1000];
     creatfile(op);
 }
 else
-    printf("wrong address.");
+    printf("wrong address.\n");
 }
 void getcat(){
 char a[2000];
@@ -84,9 +84,108 @@ char op[1000];
     cat(op);
 }
 else
-    printf("wrong address.");
+    printf("wrong address.\n");
 
 
+}
+void getinsert(){
+char a[2000];
+char op[1000];
+int io=1;
+getchar();
+scanf("%c",&a[0]);
+if(a[0]=='"'){
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]=='"')
+            break;
+        io++;
+    }
+
+    for(int i=1;i<io;i++)
+        op[i-1]=a[i];
+
+}
+else if(a[0]=='r'){
+
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]==' '){
+            break;
+            }
+        io++;
+    }
+
+    for(int i=0;i<io;i++)
+        op[i]=a[i];
+
+}
+else
+    printf("wrong address.\n");
+printf("%s\n",op);
+char pi[15];
+getchar();
+scanf("%s",pi);
+if(strcmp(pi,"--str")){
+char au[10000];
+char pip[10000];
+io=1;
+getchar();
+scanf("%c",&au[0]);
+if(au[0]=='"'){
+
+    while(1){
+       scanf("%c",&au[io]);
+        if(pip[io]=='"')
+            break;
+        io++;
+    }
+
+    for(int i=1;i<io;i++)
+        pip[i-1]=au[i];
+        getchar();
+
+}
+else{
+
+
+    while(1){
+       scanf("%c",&au[io]);
+        if(au[io]==' '){
+            break;
+            }
+        io++;
+    }
+
+    for(int i=0;i<io;i++)
+        pip[i]=au[i];
+
+}
+printf("%s %s",op,pip);
+char posi[20];
+scanf("%s",posi);
+if(strcmp(posi,"--pos")==0)
+{
+ int line;
+ int pos;
+ char p;
+ getchar();
+ scanf("%d%c%d",&line,&p,&pos);
+ if(p==':'){
+printf("%s %s",op,pip);
+ insertinfile(op,pip,line,pos);
+
+ }
+ else
+    printf("invalid syntax");
+}
+else
+    printf("invalid syntax");
+}
+else
+    printf("invalid syntax\n");
 }
 int existfile(const char* name){
 DIR* dir = opendir(name);
@@ -191,8 +290,104 @@ fclose(ptr);
 
 }
 
+int insertinfile( char *add,char *str, int line, int pos)
+{
+char *took;
+char ro[]=root;
+int contersaved=0;
+took=strtok(add,"/");
+while(took!=NULL){
 
+    if(contersaved!=0){
+        strcat(ro,"\\");
+        strcat(ro,took);
+    }
 
+    took=strtok(NULL,"/");
+    contersaved++;
+}
+    FILE *file = fopen(ro, "r");
+    if(file==NULL)
+        printf("file isn,t exist");
+
+    char *text = (char *)calloc(8000, sizeof(char));
+    int Linenow = 0;
+    for (int i = -1;i>-3; i++)
+    {
+        char c;
+        if (i == -1)
+        {
+            c = '\n';
+        }
+        else
+        {
+            c = fgetc(file);
+        }
+
+        if (c == '\n' && ++Linenow == line)
+        {
+            *(text + i) = c;
+            i++;
+            for (int j = 0; j < pos; j++)
+            {
+                c = fgetc(file);
+                if (c == '\n' || c == EOF)
+                {
+                    int nSpace = pos - j;
+                    for (int k = 0; k < nSpace; k++)
+                    {
+                        *(text + i) = ' ';
+                        i++;
+                        j++;
+                    }
+                }
+                else
+                {
+                    *(text + i) = c;
+                    i++;
+                }
+            }
+            *(text + i) = '\0';
+            strcat(text, str);
+            i += strlen(str) - 1;
+        }
+        else if (c == EOF && line > Linenow)
+        {
+            for (int j = 0; j < line - Linenow; j++)
+            {
+                *(text+ i) = '\n';
+                i++;
+            }
+            for (int j = 0; j < pos; j++)
+            {
+                *(text+ i) = ' ';
+                i++;
+            }
+            *(text + i) = '\0';
+            strcat(text, str);
+            i += strlen(str);
+            *(text + i) = '\n';
+            break;
+        }
+        else if (c == EOF)
+        {
+            if (*(text + i - 1) != '\n')
+            {
+                *(text + i) = '\n';
+            }
+            break;
+        }
+        else
+        {
+            *(text + i) = c;
+        }
+    }
+    fclose(file);
+    FILE *ptr = fopen(ro, "w");
+    fprintf(file, "%s", text);
+    fclose(ptr);
+    return 0;
+}
 
 
 int main(){
@@ -209,12 +404,21 @@ if(strcmp(yoi,"--file")==0)
 else
     printf("invalid input");
 }
-if(strcmp(vorodi,"cat")==0){
+else if(strcmp(vorodi,"cat")==0){
   char yoi[10];
 scanf("%s",yoi);
 
 if(strcmp(yoi,"--file")==0)
     getcat();
+else
+    printf("invalid input");
+}
+else if(strcmp(vorodi,"insertstr")==0){
+ char yoi[10];
+scanf("%s",yoi);
+
+if(strcmp(yoi,"--file")==0)
+    getinsert();
 else
     printf("invalid input");
 }

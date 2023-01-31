@@ -21,6 +21,7 @@ int counterarray=0;
 struct savefinds{
 int location;
 int word;
+int andaze;
 };
 struct savefinds *findoption(char *,int ,struct savedirandfile*,int );
 void getcrf(){
@@ -624,7 +625,7 @@ else{
     for(int i=0;i<io;i++)
         pip[i]=au[i];
 
- strha[0].saved=(char *)malloc(100*sizeof(char));
+ strha[0].saved=(char *)malloc(10000*sizeof(char));
 strcpy(strha[0].saved,pip);
  contersaved=1;
 }
@@ -658,7 +659,7 @@ else if(a[0]=='r'){
 
     while(1){
        scanf("%c",&a[io]);
-        if(a[io]==' '){
+        if(a[io]==' '||a[io]=='\n'){
             break;
             }
         io++;
@@ -671,12 +672,12 @@ else if(a[0]=='r'){
 else
     printf("wrong address.\n");
 //printf("%s",op);
-char f;
-f=getchar();
-if(f=='-'){
+//char f;
+//f=getchar();
+if(a[io]==' '){
 char ot[10];
 scanf("%s",ot);
-if(strcmp(ot,"count")==0){
+if(strcmp(ot,"-count")==0){
     struct savefinds *arr=findoption(op,contersaved,strha,h);
     if(arr[0].location==-1||arr[0].location>1000)
     printf("0\n");
@@ -684,7 +685,7 @@ if(strcmp(ot,"count")==0){
         printf("%d\n",counterarray);
     counterarray=0;
 }
-else if(strcmp(ot,"at")==0){
+else if(strcmp(ot,"-at")==0){
     int mored;
     scanf("%d",&mored);
     char c;
@@ -716,7 +717,7 @@ else if(strcmp(ot,"at")==0){
     else
         printf("dorost vared kon\n");
     }}
-else if(strcmp(ot,"byword")==0){
+else if(strcmp(ot,"-byword")==0){
     char c;
 c=getchar();
 if(c=='\n'){
@@ -751,7 +752,7 @@ if(c=='\n'){
     else
         printf("dorost vared kon\n");
 }}
-else if(strcmp(ot,"all")==0){
+else if(strcmp(ot,"-all")==0){
         char c;
 c=getchar();
 if(c=='\n'){
@@ -786,7 +787,135 @@ else
     printf("invalid syntax\n");
 
 }
-else if(f=='\n')
+else if(a[io]=='"'){
+    char f;
+    f=getchar();
+    if(f=='\n'){
+        struct savefinds *arr=findoption(op,contersaved,strha,h);
+        if(counterarray!=0){
+
+            printf("%d\n",arr[0].location);
+            counterarray=0;
+       }
+        else
+            printf("nadarim\n");
+    }
+    else if(f==' '){
+       char ot[10];
+scanf("%s",ot);
+if(strcmp(ot,"-count")==0){
+    struct savefinds *arr=findoption(op,contersaved,strha,h);
+    if(arr[0].location==-1||arr[0].location>1000)
+    printf("0\n");
+    else
+        printf("%d\n",counterarray);
+    counterarray=0;
+}
+else if(strcmp(ot,"-at")==0){
+    int mored;
+    scanf("%d",&mored);
+    char c;
+    c=getchar();
+
+    if(c=='\n'){
+        struct savefinds *arr=findoption(op,contersaved,strha,h);
+    if(mored<=counterarray){
+
+         printf("%d\n",arr[mored-1].location);
+         counterarray=0;
+}   else
+        printf("nadarim\n");
+    }
+    else {char uy[12];
+    scanf("%s",uy);
+    if(strcmp(uy,"-byword")==0){
+             struct savefinds *arr=findoption(op,contersaved,strha,h);
+        if(counterarray!=0&&mored<=counterarray){
+
+            printf("%d\n",arr[mored-1].word+1);
+            counterarray=0;
+        }
+        else
+            printf("nadarim\n");
+
+
+    }
+    else
+        printf("dorost vared kon\n");
+    }}
+else if(strcmp(ot,"-byword")==0){
+    char c;
+c=getchar();
+if(c=='\n'){
+    struct savefinds *arr=findoption(op,contersaved,strha,h);
+    printf("%d\n",arr[0].word+1);
+    counterarray=0;}
+    else { char uy[12];
+    scanf("%s",uy);
+    if(strcmp(uy,"-all")==0){
+        struct savefinds *arr=findoption(op,contersaved,strha,h);
+        if(counterarray!=0){
+        for(int i=0;i<counterarray;i++)
+            printf(" %d,",arr[i].word+1);
+            counterarray=0;
+        printf("\n");}
+        else
+            printf("nadarim\n");
+
+    }
+    else if(strcmp(uy,"-at")==0){
+        int mored;
+        scanf("%d",&mored);
+        struct savefinds *arr=findoption(op,contersaved,strha,h);
+        if(counterarray!=0&&mored<=counterarray){
+
+            printf("%d\n",arr[mored-1].word+1);
+            counterarray=0;
+        }
+        else
+            printf("nadarim\n");
+    }
+    else
+        printf("dorost vared kon\n");
+}}
+else if(strcmp(ot,"-all")==0){
+        char c;
+c=getchar();
+if(c=='\n'){
+     struct savefinds *arr=findoption(op,contersaved,strha,h);
+     if(counterarray!=0){
+        for(int i=0;i<counterarray;i++)
+            printf(" %d,",arr[i].location);
+            counterarray=0;
+        printf("\n");}
+        else
+            printf("nadarim\n");
+
+        }
+else{
+    char uy[12];
+    scanf("%s",uy);
+    if(strcmp(uy,"-byword")==0){
+        struct savefinds *arr=findoption(op,contersaved,strha,h);
+        if(counterarray!=0){
+        for(int i=0;i<counterarray;i++)
+            printf(" %d,",arr[i].word+1);
+            counterarray=0;
+        printf("\n");}
+        else
+            printf("nadarim\n");
+        }
+        else
+            printf("dorost vared kon\n");
+}
+}
+else
+    printf("invalid syntax\n");
+    }
+else
+    printf("dorost vared kon\n");
+}
+else if(a[io]=='\n')
     {
       struct savefinds *arr=findoption(op,contersaved,strha,h);
         if(counterarray!=0){
@@ -804,7 +933,306 @@ else
 else
     printf("invalid syntax\n");
 }
+void getreplace(){
+char au[10000];
+char pip[10000];
+int contersaved;
+int h=0;
+struct savedirandfile strha[100];
+int io=1;
+getchar();
+scanf("%c",&au[0]);
+if(au[0]=='"'){
+int f=0;
+    while(1){
+       scanf("%c",&au[io]);
+       if(au[io]=='\\'){
+        f=2;
+       }
+        if(au[io]=='"'&&f==0)
+            break;
+        io++;
+        if(f>0)
+            f--;
+    }
 
+    for(int i=1;i<io;i++)
+        pip[i-1]=au[i];
+
+    for(int i=0;i<io;i++)
+        {
+            if(pip[i]=='\\')
+            {   if(pip[i+1]=='*'){
+                pip[i]='*';
+                for(int j=i+1;j<io;j++)
+                    pip[j]=pip[j+1];
+                    h=1;
+
+                    }
+
+
+
+               }
+        }
+char *tak;
+
+
+ contersaved=0;
+tak=strtok(pip," ");
+while(tak!=NULL){
+    strha[contersaved].saved=(char *)malloc(50*sizeof(char));
+    strcpy(strha[contersaved].saved,tak);
+    tak=strtok(NULL," ");
+    contersaved++;
+}
+
+}
+
+else{
+
+
+    while(1){
+       scanf("%c",&au[io]);
+        if(au[io]==' '){
+            break;
+            }
+        io++;
+    }
+
+    for(int i=0;i<io;i++)
+        pip[i]=au[i];
+
+ strha[0].saved=(char *)malloc(1000*sizeof(char));
+strcpy(strha[0].saved,pip);
+ contersaved=1;
+}
+//getchar();
+char ab[10];
+scanf("%s",ab);
+char pip1[10000];
+if(strcmp(ab,"--str2")==0){
+    getchar();
+    char au1[10000];
+
+int contersaved1;
+int h1=0;
+struct savedirandfile strha1[100];
+int io1=1;
+//getchar();
+scanf("%c",&au1[0]);
+if(au1[0]=='"'){
+int f1=0;
+    while(1){
+       scanf("%c",&au1[io1]);
+       if(au1[io1]=='\\'){
+        f1=2;
+       }
+        if(au1[io1]=='"'&&f1==0)
+            break;
+        io1++;
+        if(f1>0)
+            f1--;
+    }
+
+    for(int i=1;i<io1;i++)
+        pip1[i-1]=au1[i];
+
+    for(int i=0;i<io1;i++)
+        {
+            if(pip1[i]=='\\')
+            {   if(pip1[i+1]=='*'){
+                pip1[i]='*';
+                for(int j=i+1;j<io1;j++)
+                    pip1[j]=pip1[j+1];
+                    h1=1;
+
+                    }
+
+
+
+               }
+        }
+char *tak1;
+
+
+ contersaved1=0;
+
+}
+
+else{
+
+
+    while(1){
+       scanf("%c",&au1[io1]);
+        if(au1[io1]==' '||au1[io1]=='\n'){
+            break;
+            }
+        io1++;
+    }
+
+    for(int i=0;i<io1;i++)
+        pip1[i]=au1[i];
+
+ strha1[0].saved=(char *)malloc(1000*sizeof(char));
+strcpy(strha1[0].saved,pip1);
+ contersaved1=1;
+}
+
+}
+else{
+    printf("dorost vared kon\n");
+}
+
+char fi[20];
+scanf("%s",fi);
+if(strcmp(fi,"--file")==0){
+char a[2000];
+char op[1000];
+int io=1;
+getchar();
+scanf("%c",&a[0]);
+if(a[0]=='"'){
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]=='"')
+            break;
+        io++;
+    }
+
+    for(int i=1;i<io;i++)
+        op[i-1]=a[i];
+        op[io-1]='\0';
+
+}
+else if(a[0]=='r'){
+
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]==' '||a[io]=='\n'){
+            break;
+            }
+        io++;
+    }
+
+    for(int i=0;i<io;i++)
+        op[i]=a[i];
+
+}
+else
+    printf("wrong address.\n");
+char oiy[1000];
+char oiy1[1000];
+char temp[1000];
+strcpy(oiy,op);
+strcpy(oiy1,op);
+strcpy(temp,op);
+if(a[io]==' '||a[io]=='\n'){
+    if(a[io]=='\n'){
+        struct savefinds *arr=findoption(op,contersaved,strha,h);
+        if(counterarray!=0){
+
+            removestr(oiy,1,arr[0].location-1,arr[0].andaze,'f');
+            insertinfile(oiy1,pip1,1,arr[0].location);
+
+            counterarray=0;
+       }
+        else
+            printf("nadarim\n");
+    }
+    else if(a[io]==' '){
+        char danial[30];
+        scanf("%s",danial);
+        if(strcmp(danial,"-at")==0){
+            int mored1;
+            scanf("%d",&mored1);
+            struct savefinds *arr=findoption(op,contersaved,strha,h);
+            if(mored1<=counterarray){
+                 removestr(oiy,1,arr[mored1-1].location-1,arr[mored1-1].andaze,'f');
+            insertinfile(oiy1,pip1,1,arr[mored1-1].location);
+
+            counterarray=0;
+
+            }
+            else
+                printf("nadarim\n");
+        }
+        else if(strcmp(danial,"-all")==0){
+            struct savefinds *arr=findoption(op,contersaved,strha,h);
+            if(counterarray!=0){
+            for(int iuyt=0;iuyt<counterarray;iuyt++){
+                 removestr(oiy,1,arr[iuyt].location-1,arr[iuyt].andaze,'f');
+            insertinfile(oiy1,pip1,1,arr[iuyt].location);
+
+            strcpy(oiy,temp);
+            strcpy(oiy1,temp);
+            strcpy(op,temp);
+
+            }
+             counterarray=0;}
+             else printf("nadarim\n");
+        }
+    }
+}
+else if(a[io]=='"'){
+    char lk=getchar();
+
+    if(lk=='\n'){
+       struct savefinds *arr=findoption(op,contersaved,strha,h);
+        if(counterarray!=0){
+
+            removestr(oiy,1,arr[0].location-1,arr[0].andaze,'f');
+            insertinfile(oiy1,pip1,1,arr[0].location);
+
+            counterarray=0;
+       }
+        else
+            printf("nadarim\n");
+    }
+    else if(lk==' '){
+          char danial[30];
+        scanf("%s",danial);
+        if(strcmp(danial,"-at")==0){
+            int mored1;
+            scanf("%d",&mored1);
+            struct savefinds *arr=findoption(op,contersaved,strha,h);
+            if(mored1<=counterarray){
+                 removestr(oiy,1,arr[mored1-1].location-1,arr[mored1-1].andaze,'f');
+            insertinfile(oiy1,pip1,1,arr[mored1-1].location);
+
+            counterarray=0;
+
+            }
+            else
+                printf("nadarim\n");
+        }
+        else if(strcmp(danial,"-all")==0){
+            struct savefinds *arr=findoption(op,contersaved,strha,h);
+            if(counterarray!=0){
+            for(int iuyt=0;iuyt<counterarray;iuyt++){
+                 removestr(oiy,1,arr[iuyt].location-1,arr[iuyt].andaze,'f');
+            insertinfile(oiy1,pip1,1,arr[iuyt].location);
+            strcpy(oiy,temp);
+            strcpy(oiy1,temp);
+            strcpy(op,temp);
+
+
+            }
+             counterarray=0;
+            }
+             else printf("nadarim\n");
+        }
+    }else
+    printf("dorost bezan\n");
+}
+else
+    printf("eshtebah dari mizani:))\n");
+
+
+}}
+
+//***************************************************************************************************************
 int existfile(const char* name){
 DIR* dir = opendir(name);
 if (dir) {
@@ -891,7 +1319,7 @@ while(took!=NULL){
     took=strtok(NULL,"/");
     contersaved++;
 }
-printf("%s",ro);
+//printf("%s",ro);
 FILE *ptr=fopen(ro,"r");
 if(ptr==NULL){
     printf("this file not exist");
@@ -1401,6 +1829,7 @@ ptr=fopen(ro,"r");
     int sign=0;
     int x=0;
     int joke=0;
+    int start;
     int counterkalamevrodi=0;
 
         for(int counterkalamefile=0;counterkalamefile<con;counterkalamefile++){
@@ -1416,6 +1845,27 @@ ptr=fopen(ro,"r");
                            sum+=strlen(kalame[shut].saved);
                    array[counterarray].location=yere+counterkalamefile+sum+check_wildcard(kalame[counterkalamefile].saved,kalmatvorodi[0].saved,makan);
                     array[counterarray].word=counterkalamefile;
+                     char *copy2=(char *)malloc(100*sizeof(char ));
+                                    strcpy(copy2,kalmatvorodi[counterkalamevrodi].saved);
+                                    removeChar(copy2,'*');
+                                    if(makan==1){
+                                       array[counterarray].andaze=strlen(kalame[counterkalamefile].saved)-(strstr(kalame[counterkalamefile].saved,copy2)-kalame[counterkalamefile].saved);
+                                    }
+                                    else{
+                                        char *opi=strstr(kalame[counterkalamefile].saved,copy2);
+                                        char *back=opi;
+                                        while(1){
+                                            back=opi;
+
+                                            if(strstr(opi+1,copy2)==NULL)
+                                                break;
+                                             opi=strstr(opi+1,copy2);
+
+                                        }
+
+
+                                        array[counterarray].andaze=back-kalame[counterkalamefile].saved+1;
+                                    }
                     joke=counterkalamefile;
                     counterarray++;
                 }}
@@ -1426,6 +1876,7 @@ ptr=fopen(ro,"r");
                            sum+=strlen(kalame[shut].saved);
                    array[counterarray].location=yere+counterkalamefile+sum+check_kalametanha(kalame[counterkalamefile].saved,kalmatvorodi[0].saved);
                 array[counterarray].word=counterkalamefile;
+                array[counterarray].andaze=strlen(kalmatvorodi[0].saved);
                     joke=counterkalamefile;
                     counterarray++;
                 }}
@@ -1443,6 +1894,7 @@ ptr=fopen(ro,"r");
                            sum+=strlen(kalame[shut].saved);
                          array[counterarray].location =yere+counterkalamefile+sum+check_wildcard(kalame[counterkalamefile].saved,kalmatvorodi[counterkalamevrodi].saved,makan);loc++;
                            array[counterarray].word=counterkalamefile;
+                           start=array[counterarray].location;
                           joke=counterkalamefile;
                           x=0;
                           sign=0;
@@ -1461,6 +1913,7 @@ ptr=fopen(ro,"r");
                     array[counterarray].location =yere+counterkalamefile+sum+check_kalametanha(kalame[counterkalamefile].saved,kalmatvorodi[counterkalamevrodi].saved);loc++;
                     joke=counterkalamefile;
                     array[counterarray].word=counterkalamefile;
+                    start=array[counterarray].location;
                     x=0;
                     sign=0;
 
@@ -1474,6 +1927,7 @@ ptr=fopen(ro,"r");
 
                      array[counterarray].location =-1;
                         array[counterarray].word=-1;
+                        array[counterarray].andaze=-1;
                 }
 
 
@@ -1487,7 +1941,15 @@ ptr=fopen(ro,"r");
                          if(makan==-1){
                                 if(check_wildcard(kalame[counterkalamefile].saved,kalmatvorodi[counterkalamevrodi].saved,makan)!=-1){
                                     x++;
-                                    joke=counterkalamefile;
+                                     int s=-1;
+                                   char *copy1=(char *)malloc(100*sizeof(char ));
+                                            strcpy(copy1,kalmatvorodi[counterkalamevrodi].saved);
+                                            removeChar(copy1,'*');
+
+                            for(int ju=0;ju<counterkalamefile;ju++)
+                                s += strlen(kalame[ju].saved)+1;
+                                s+=strstr(kalame[counterkalamefile].saved,copy1)-kalame[counterkalamefile].saved+strlen(copy1);
+                                array[counterarray-1].andaze=s-start+1;
 
                                      }
                          }
@@ -1495,7 +1957,12 @@ ptr=fopen(ro,"r");
                                 if(check_wildcard1(kalame[counterkalamefile].saved,kalmatvorodi[counterkalamevrodi].saved,makan)!=-1){
 
                                     x++;
-                                    joke=counterkalamefile;
+                                     int s=-1;
+
+                            for(int ju=0;ju<=counterkalamefile;ju++)
+                                s += strlen(kalame[ju].saved)+1;
+                                array[counterarray-1].andaze=s-start;
+
 
                                     }
                          }
@@ -1504,13 +1971,20 @@ ptr=fopen(ro,"r");
                     else{
                         if(check_kalameakhar(kalame[counterkalamefile].saved,kalmatvorodi[counterkalamevrodi].saved)){
                             x++;
-                            joke=counterkalamefile;
+                            int s=-1;
+
+                            for(int ju=0;ju<counterkalamefile;ju++)
+                                s += strlen(kalame[ju].saved)+1;
+                                s+=strlen(kalmatvorodi[tedad-1].saved);
+                            array[counterarray-1].andaze=s-start+1;
+
                      }}
                         //printf("%d%s %s\n",x,kalame[counterkalamefile].saved,kalmatvorodi[counterkalamevrodi].saved);
                     if(x==0){
                         counterarray--;
                         array[counterarray].location=-1;
                         array[counterarray].word=-1;
+                        array[counterarray].andaze=-1;
 
                     }
 
@@ -1540,6 +2014,10 @@ ptr=fopen(ro,"r");
                     if(counterkalamefile==con-2&&sign!=tedad-2){
                        array[counterarray-1].location =-1;
                        array[counterarray-1].word =-1;
+                       array[counterarray-1].andaze=-1;
+
+
+
 
                 }}
             }
@@ -1626,6 +2104,15 @@ scanf("%s",yoi);
 
 if(strcmp(yoi,"--str")==0)
   getfind();
+else
+    printf("invalid input");
+}
+else if(strcmp(vorodi,"replace")==0){
+ char yoi[10];
+scanf("%s",yoi);
+
+if(strcmp(yoi,"--str1")==0)
+  getreplace();
 else
     printf("invalid input");
 }

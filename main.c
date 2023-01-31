@@ -1462,6 +1462,7 @@ while(took!=NULL){
 if(ptr==NULL){
     printf("this file not exist\n");
     return 0;}
+    int count;
     int linenow=1;
     int posnow=0;
     char c;
@@ -1473,7 +1474,20 @@ if(ptr==NULL){
     char *forward = (char *)calloc(8000, sizeof(char));
     for(int i=0;i<8000;i++)
     *(forward+i)='\0';
+    if(pos==-1){
+        while(1)
+    {
+        c=fgetc(ptr);
 
+        if(c==EOF)
+            break;
+             *(forward+io)=c;
+            io++;
+
+
+    }
+    }
+    else{
     while(linenow!=line){
         c=fgetc(ptr);
         *(back+io)=c;
@@ -1502,7 +1516,7 @@ if(ptr==NULL){
             io++;
             posnow++;
     }
-    int count=io;
+    count=io;
     io=0;
 
     while(1)
@@ -1515,7 +1529,7 @@ if(ptr==NULL){
             io++;
 
 
-    }
+    }}
 fclose(ptr);
 
 FILE *ptr1;
@@ -1582,6 +1596,7 @@ if(ptr==NULL){
     char *forward = (char *)calloc(8000, sizeof(char));
     for(int i=0;i<8000;i++)
     *(forward+i)='\0';
+
 
     while(linenow!=line){
         c=fgetc(ptr);
@@ -1879,6 +1894,16 @@ ptr=fopen(ro,"r");
                 array[counterarray].andaze=strlen(kalmatvorodi[0].saved);
                     joke=counterkalamefile;
                     counterarray++;
+                    char *tat=strstr(kalame[counterkalamefile].saved,kalmatvorodi[0].saved);
+                           while(1){
+                                if(strstr(tat+1,kalmatvorodi[0].saved)==NULL)
+                                    break;
+                                tat=strstr(tat+1,kalmatvorodi[0].saved);
+                   array[counterarray].location=counterkalamefile+sum+check_kalametanha(kalame[counterkalamefile].saved,kalmatvorodi[0].saved)+(tat-kalame[counterkalamefile].saved);
+                array[counterarray].word=counterkalamefile;
+                 array[counterarray].andaze=strlen(kalmatvorodi[0].saved);
+                    joke=counterkalamefile;
+                    counterarray++;}
                 }}
 
             }

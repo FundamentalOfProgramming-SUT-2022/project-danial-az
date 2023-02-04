@@ -7,11 +7,15 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include<dirent.h>
+#include<locale.h>
+#define zo strlen(content)
 #define root "C:\\Users\\Danial\\Desktop\\root"
 
 char *cutstr(char *,char*,int ,int,int,char );
 char *copystr(char*,int ,int,int,char );
-
+char fileghabli[500];
+char fileghabli1[500];
 struct savedirandfile{
 char *saved;
 
@@ -23,6 +27,63 @@ int location;
 int word;
 int andaze;
 };
+void copysaz(char *add){
+    for(int i=0;i<500;i++)
+        fileghabli[i]='\0';
+    for(int i=0;i<500;i++)
+        fileghabli1[i]='\0';
+
+
+
+    char add2[500];
+    strcpy(add2,"C:\\Users\\Danial\\Desktop\\root1\\");
+    strcat(add2,add+29);
+
+    // Assume that the program takes two arguments the source path followed
+    // by the destination path.
+
+   FILE* avall = fopen(add,"r");
+    FILE* dovam= fopen(add2,"w");
+    char c;
+
+
+    while (1) {
+        c=fgetc(avall);
+        //printf("%c",c);
+        if(c==EOF)
+            break;
+        fprintf(dovam,"%c",c);
+
+    }
+
+    fclose(avall);
+    fclose(dovam);
+}
+void copysaz1(char *add){
+     char add2[500];
+    strcpy(add2,"C:\\Users\\Danial\\Desktop\\root1\\");
+    strcat(add2,add+29);
+
+    FILE* avall = fopen(add2,"r");
+    if(avall==NULL)
+        printf("in file nadarad marhale ghabl\n");
+    FILE* dovam= fopen(add,"w");
+        if(dovam==NULL)
+            printf("file ro dorost vared kon\n");
+    char c;
+
+    while (1) {
+        c=fgetc(avall);
+
+        if(c==EOF)
+            break;
+        fprintf(dovam,"%c",c);
+
+    }
+
+    fclose(avall);
+    fclose(dovam);
+}
 struct savefinds *findoption(char *,int ,struct savedirandfile*,int );
 void getcrf(){
 char a[2000];
@@ -37,7 +98,9 @@ if(a[0]=='"'){
             break;
         io++;
     }
-    char op[1000];
+    char op[10000];
+    for(int i=0;i<10000;i++)
+    op[i]='\0';
     for(int i=1;i<io;i++)
         op[i-1]=a[i];
         op[io-1]='\0';
@@ -53,7 +116,9 @@ else if(a[0]=='r'){
             }
         io++;
     }
-char op[1000];
+char op[10000];
+for(int i=0;i<10000;i++)
+    op[i]='\0';
     for(int i=0;i<io;i++)
         op[i]=a[i];
 
@@ -65,6 +130,7 @@ else
 }
 void getcat(){
 char a[2000];
+
 int io=1;
 getchar();
 scanf("%c",&a[0]);
@@ -76,7 +142,9 @@ if(a[0]=='"'){
             break;
         io++;
     }
-    char op[1000];
+    char op[10000];
+    for(int i=0;i<10000;i++)
+    op[i]='\0';
     for(int i=1;i<io;i++)
         op[i-1]=a[i];
         op[io-1]='\0';
@@ -93,7 +161,9 @@ else if(a[0]=='r'){
             }
         io++;
     }
-char op[1000];
+char op[10000];
+for(int i=0;i<10000;i++)
+    op[i]='\0';
     for(int i=0;i<io;i++)
         op[i]=a[i];
 
@@ -151,6 +221,8 @@ scanf("%s",pi);
 if(strcmp(pi,"--str")==0){
 char au[10000];
 char pip[10000];
+for(int i=0;i<10000;i++)
+    pip[i]='\0';
 io=1;
 getchar();
 scanf("%c",&au[0]);
@@ -248,6 +320,8 @@ char a[2000];
 int io=1;
 getchar();
 char op[1000];
+for(int i=0;i<1000;i++)
+    op[i]='\0';
 scanf("%c",&a[0]);
 if(a[0]=='"'){
 
@@ -268,6 +342,7 @@ else if(a[0]=='r'){
 
     while(1){
        scanf("%c",&a[io]);
+
         if(a[io]=='\n'||a[io]==' '){
             break;
             }
@@ -304,8 +379,10 @@ if(oo==':'){
   char x,y;
   getchar();
   scanf("%c%c",&x,&y);
-  if(x=='-'&&(y=='f'||y=='b'))
-       removestr(op,line,pos,size,y);
+  if(x=='-'&&(y=='f'||y=='b')){
+
+       removestr(op,line,pos,size,y);}
+
  }
 else
     printf("invalid syntax1");
@@ -331,7 +408,9 @@ char* getcopystr(){
 char a[2000];
 int io=1;
 getchar();
-char op[1000];
+char op[10000];
+for(int i=0;i<10000;i++)
+    op[i]='\0';
 scanf("%c",&a[0]);
 if(a[0]=='"'){
 
@@ -499,7 +578,9 @@ else
 }
 void getpaststr(char *past){
 char a[2000];
-char op[1000];
+char op[10000];
+for(int i=0;i<10000;i++)
+    op[i]='\0';
 int io=1;
 getchar();
 scanf("%c",&a[0]);
@@ -674,6 +755,7 @@ else
 //printf("%s",op);
 //char f;
 //f=getchar();
+//printf("%s",op);
 if(a[io]==' '){
 char ot[10];
 scanf("%s",ot);
@@ -936,6 +1018,8 @@ else
 void getreplace(){
 char au[10000];
 char pip[10000];
+for(int i=0;i<10000;i++)
+    pip[i]='\0';
 int contersaved;
 int h=0;
 struct savedirandfile strha[100];
@@ -1010,6 +1094,8 @@ strcpy(strha[0].saved,pip);
 char ab[10];
 scanf("%s",ab);
 char pip1[10000];
+for(int i=0;i<10000;i++)
+    pip1[i]='\0';
 if(strcmp(ab,"--str2")==0){
     getchar();
     char au1[10000];
@@ -1073,9 +1159,7 @@ else{
     for(int i=0;i<io1;i++)
         pip1[i]=au1[i];
 
- strha1[0].saved=(char *)malloc(1000*sizeof(char));
-strcpy(strha1[0].saved,pip1);
- contersaved1=1;
+
 }
 
 }
@@ -1088,6 +1172,8 @@ scanf("%s",fi);
 if(strcmp(fi,"--file")==0){
 char a[2000];
 char op[1000];
+for(int i=0;i<10000;i++)
+    op[i]='\0';
 int io=1;
 getchar();
 scanf("%c",&a[0]);
@@ -1271,7 +1357,7 @@ void getgrep(){
                 }
                 char fi[20];
                 scanf("%s",fi);
-                if(strcmp(fi,"--file")==0){
+                if(strcmp(fi,"--files")==0){
                 struct savedirandfile filha[10];
                 int flag=0;
                 int contet=0;
@@ -1332,7 +1418,7 @@ void getgrep(){
                 }
                 for(int ip=0;ip<contet;ip++){
 
-                grep(filha[ip].saved,pip);
+                grep(filha[ip].saved,pip,0);
                 }
 
     }
@@ -1377,7 +1463,7 @@ void getgrep(){
                 }
                 char fi[20];
                 scanf("%s",fi);
-                if(strcmp(fi,"--file")==0){
+                if(strcmp(fi,"--files")==0){
                 struct savedirandfile filha[10];
                 int flag=0;
                 int contet=0;
@@ -1486,7 +1572,7 @@ void getgrep(){
                 }
                 char fi[20];
                 scanf("%s",fi);
-                if(strcmp(fi,"--file")==0){
+                if(strcmp(fi,"--files")==0){
                 struct savedirandfile filha[10];
                 int flag=0;
                 int contet=0;
@@ -1600,7 +1686,7 @@ strcat(ro,a[i].saved);
     if (!c);
       //printf("Directory created\n");
    else {
-      printf("Unable to create directory\n");
+      printf("directory vojod darad\n");
       //exit(1);
    }
  }
@@ -1616,16 +1702,16 @@ strcpy(po,ro);
 int s=access(ro,F_OK);
 
 if(s==0)
-    printf("this file is exist.");
+    printf("this file is exist.\n");
 else{
 FILE *ptr;
 ptr=fopen(po,"w");
 if(ptr == NULL)
    {
-      printf("Error!");
+      printf("Error!\n");
       exit(1);
    }
-   printf("your file created");
+   printf("your file created\n");
 fclose(ptr);
 }
 
@@ -1691,6 +1777,7 @@ while(took!=NULL){
         printf("file isn,t exist");
     return 0;
     }
+    copysaz(ro);
     char *text = (char *)calloc(8000, sizeof(char));
     int Linenow = 0;
     for (int i = -1;i>-3; i++)
@@ -1791,6 +1878,7 @@ while(took!=NULL){
 if(ptr==NULL){
     printf("this file not exist\n");
     return 0;}
+    copysaz(ro);
     int count;
     int linenow=1;
     int posnow=0;
@@ -2114,6 +2202,7 @@ void removeChar(char *str, char garbage) {
 }
 
 struct savefinds *findoption(char *esmfile,int tedad,struct savedirandfile kalmatvorodi[],int h){
+
    struct savefinds *array = malloc(sizeof(struct savefinds) * 100);
 
     char *took;
@@ -2132,6 +2221,7 @@ while(took!=NULL){
     contersaved++;
 }
 FILE *ptr=fopen(ro,"r");
+//printf("d");
 int yere=0;
 if(ptr==NULL){
     printf("in file ra ");
@@ -2144,6 +2234,8 @@ while(1){
         break;
 }
 fclose(ptr);
+//printf("%s",ro);
+
 ptr=fopen(ro,"r");
     int i=0;
     char c;
@@ -2168,7 +2260,7 @@ ptr=fopen(ro,"r");
         word=strtok(NULL," ");
         con++;
     }
-
+    //printf("D");
     int loc=-1;
     int sign=0;
     int x=0;
@@ -2179,7 +2271,8 @@ ptr=fopen(ro,"r");
         for(int counterkalamefile=0;counterkalamefile<con;counterkalamefile++){
 
             if(tedad==1){
-
+                   // printf("D");
+                   //printf("%s",kalmatvorodi[0].saved);
                 if(check_vojodwild(kalmatvorodi[0].saved)&&h==0){
                      int makan=makanwild(kalmatvorodi[0].saved);
 
@@ -2212,10 +2305,13 @@ ptr=fopen(ro,"r");
                                     }
                     joke=counterkalamefile;
                     counterarray++;
+                   // printf("t");
                 }}
                 else{
+                        //printf("d");
                     if(check_kalametanha(kalame[counterkalamefile].saved,kalmatvorodi[0].saved)!=-1){
                         int sum=0;
+
                         for(int shut=0;shut<counterkalamefile;shut++)
                            sum+=strlen(kalame[shut].saved);
                    array[counterarray].location=yere+counterkalamefile+sum+check_kalametanha(kalame[counterkalamefile].saved,kalmatvorodi[0].saved);
@@ -2379,7 +2475,7 @@ ptr=fopen(ro,"r");
 
         }
 
-
+//printf("D");
 
 return array;
 
@@ -2389,6 +2485,7 @@ char *file=malloc(1000*sizeof(char));
 for(int i=0;i<1000;i++)
     file[i]='\0';
 strcpy(file,add);
+//printf("%s\n",file);
     char *took;
 char ro[1000];
 strcpy(ro,root);
@@ -2428,17 +2525,21 @@ while(1){
         continue;
 
     }
-    if(c==EOF)
-        break;
+    if(c==EOF){
+         *(khatha[counterkhat].saved+tokhat)='\0';
+        counterkhat++;
+        break;}
 
     *(khatha[counterkhat].saved+tokhat)=c;
     tokhat++;
 }fclose(ptr);
  //printf("%s",khatha[1].saved);
  int t=0;
+
 if(a==0){
 
 for(int i=0;i<counterkhat;i++){
+
     if(strstr(khatha[i].saved,morednazar)!=NULL)
          printf("%s : %s\n",file,khatha[i].saved);
 }}
@@ -2458,11 +2559,487 @@ for(int i=0;i<counterkhat;i++){
 }}
 
 }
+void undo(){
+char a[2000];
+char op[1000];
+int io=1;
+char uy[15];
+scanf("%s",uy);
+if(strcmp(uy,"--file")==0){
+getchar();
+scanf("%c",&a[0]);
+
+if(a[0]=='"'){
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]=='"')
+            break;
+        io++;
+    }
+
+    for(int i=1;i<io;i++)
+        op[i-1]=a[i];
+        op[io-1]='\0';
+
+
+getchar();
+}
+else if(a[0]=='r'){
+
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]=='\n'||a[io]==' '){
+            break;
+            }
+        io++;
+    }
+
+    for(int i=0;i<io;i++)
+        op[i]=a[i];
+op[io]='\0';
+
+}
+else
+    printf("wrong address.\n");
+char *took;
+char ro[1000];
+strcpy(ro,root);
+int contersaved=0;
+took=strtok(op,"/");
+while(took!=NULL){
+
+    if(contersaved!=0){
+        strcat(ro,"\\");
+        strcat(ro,took);
+    }
+
+    took=strtok(NULL,"/");
+    contersaved++;
+}
+copysaz1(ro);}
+else
+    printf("eshteb vared kardi\n");
+}
+int shomaresh(int u,char* content){
+    int si=0;
+for(int o=u;o>=0;o--)
+{
+    if (content[o] == '{'){
+                    si++;
+    }else if(content[o] == '}'){
+                    si--;
+                }
+}
+return si;
+}
+void indghozari(){
+char a[2000];
+char op[1000];
+int io=1;
+char uy[15];
+scanf("%s",uy);
+if(strcmp(uy,"--file")==0){
+getchar();
+scanf("%c",&a[0]);
+
+if(a[0]=='"'){
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]=='"')
+            break;
+        io++;
+    }
+
+    for(int i=1;i<io;i++)
+        op[i-1]=a[i];
+        op[io-1]='\0';
+
+
+getchar();
+}
+else if(a[0]=='r'){
+
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]=='\n'||a[io]==' '){
+            break;
+            }
+        io++;
+    }
+
+    for(int i=0;i<io;i++)
+        op[i]=a[i];
+op[io]='\0';
+
+}
+else
+    printf("wrong address.\n");
+char *took;
+char ro[1000];
+strcpy(ro,root);
+int contersaved=0;
+took=strtok(op,"/");
+while(took!=NULL){
+
+    if(contersaved!=0){
+        strcat(ro,"\\");
+        strcat(ro,took);
+    }
+
+    took=strtok(NULL,"/");
+    contersaved++;
+}
+char *content=(char *)malloc(1000000*sizeof(char));
+
+FILE *ptr=fopen(ro,"r");
+int conterfile=0;
+if(ptr==NULL){
+    printf("na");
+    return 0;}
+copysaz(ro);
+while(1){
+    char c=fgetc(ptr);
+    if(c==EOF)
+        break;
+    content[conterfile]=c;
+    conterfile++;
+}
+content[conterfile]='\0';
+fclose(ptr);
+//printf("//%s//\n",content);
+int i=0;
+
+while(i<zo){
+    if(content[i]=='{' && content[i-1]!=' '&&i!=0){
+        for(int u=zo-1;u>i-1;u--)
+            content[u+1]=content[u];
+        content[i]=' ';
+        i+=2;
+    }
+
+    i++;
+}
+//content[i]='\0';
+i=0;
+//printf("//%s//\n",content);
+while(i<zo){
+    if(content[i]=='{'){
+        for(int u=i+1;u<zo;u++){
+            if(content[u]!=' '){
+                for(int s=i+1;s<zo;s++)
+                   content[s] =content[s+u-i-1];
+                break;
+            }
+
+        }
+    }
+
+ i++;
+}
+i=0;
+
+while(i<zo){
+    if(content[i]=='{'){
+        for(int u=i-1;u>=0;u--){
+               //printf("d");
+            if(content[u]!=' '){
+                    if ((i - u) > 2){
+                for(int s=u+2;s<zo;s++){
+
+                    content[s]=content[s+i-u-2];}}
+            break;
+            }
+        }
+    }
+    i++;
+}
+//printf("//%s//\n",content);
+i=0;
+while(i<zo){
+    if(content[i]=='}'){
+        for(int u=i+1;u<zo;u++){
+            if(content[u]!=' '){
+                for(int s=i+1;s<zo;s++)
+                   content[s] =content[s+u-i-1];
+                break;
+            }
+
+        }
+    }
+
+ i++;
+}
+//printf("1//%s//\n",content);
+i=0;
+while(i<zo){
+    if(content[i]=='}'){
+        for(int u=i-1;u>=0;u--){
+            if(content[u]!=' '){
+
+                for(int s=u+1;s<zo;s++)
+                    content[s]=content[s+i-u-1];
+            break;
+            }
+        }
+    }
+    i++;
+}
+i=0;
+int sum=0;
+while(i<zo){
+        if(content[i]=='{'){
+            sum++;
+
+         for (int p = zo; p > i; p--){
+                content[p+(sum*4+1)] = content[p];
+            }content[i+1]='\n';
+            int tr=2;
+            for(int u=tr;u<sum*4+2;u++)
+                content[u+i]=' ';}
+        else if(content[i]=='}'){
+            sum--;
+            for (int p = i-1; p >= 0; p--){
+                if (content[p] != ' ' && content[p] != '\n'){
+                        for (int dani = zo-1; dani> p; dani--){
+                            content[dani+(sum*4+1)] = content[dani];
+                        }
+            content[p+1] = '\n';
+            for (int u= 2; u < sum*4+2; u++){
+                content[u+p] = ' ';
+            }
+            break;
+        }
+
+}
+ i += sum*4+1;
+}
+i++;}
+//printf("//%s//\n",content);
+i=0;
+
+while(i<zo){
+    if (content[i] == '}' && content[i+1] != '\n' && content[i+1] != '}'){
+
+        int braket=shomaresh(i,content);
+
+        for (int t = zo-1; t > i; t--){
+                content[t+(braket*4+1)] = content[t];
+            }
+            content[i+1] = '\n';
+            for (int rise = 2; rise < braket*4+2; rise++){
+                content[rise+i] = ' ';
+            }
+            i += braket*4+1;
+            braket= 0;
+    }
+    i++;
+}
+//printf("//%s//\n",content);
+int unit=zo;
+for (int i1 = 0; i1 < unit; i1++){
+        if (content[i1] == '}'){
+            for (int ko= i1-1; ko >= 0; ko--){
+                if (content[ko] != ' ' && content[ko] != '\n'){
+                    if (content[ko] == '{'){
+                        for (int j = i1-4; j < unit; j++){
+                            content[j] = content[j+4];
+                        }
+                    } else {
+                        break;
+                    }
+                    break;
+}}}}
+content[zo-1] = '\0';
+FILE* osi=fopen(ro,"w");
+fprintf(osi,"%s",content);
+fclose(osi);}
+else
+    printf("doroat vared kon\n");
+}
+void textcomparator(char * add,char* add1){
+    char *took;
+char ro[1000];
+strcpy(ro,root);
+int contersaved=0;
+took=strtok(add,"/");
+while(took!=NULL){
+
+    if(contersaved!=0){
+        strcat(ro,"\\");
+        strcat(ro,took);
+    }
+
+    took=strtok(NULL,"/");
+    contersaved++;
+}
+struct savedirandfile khatha[100];
+int counterkhat=0;
+int shom=0;
+int tokhat=0;
+FILE* ptr=fopen(ro,"r");
+//printf("%s\n",ro);
+if(ptr==NULL){
+    printf("file 1 ro nadarim\n");
+    return ;
+}
+
+khatha[0].saved=(char *)malloc(1000*sizeof(char));
+char c;
+while(1){
+    c=fgetc(ptr);
+    if(c=='\n'){
+            *(khatha[counterkhat].saved+tokhat)='\0';
+        counterkhat++;
+        shom++;
+        khatha[shom].saved=(char *)malloc(1000*sizeof(char));
+        tokhat=0;
+        continue;
+
+    }
+    if(c==EOF){
+             *(khatha[counterkhat].saved+tokhat)='\0';
+             counterkhat++;
+        break;}
+
+
+    *(khatha[counterkhat].saved+tokhat)=c;
+    tokhat++;
+}fclose(ptr);
+char *took1;
+char ro1[1000];
+strcpy(ro1,root);
+int contersaved1=0;
+took=strtok(add1,"/");
+while(took1!=NULL){
+
+    if(contersaved1!=0){
+        strcat(ro1,"\\");
+        strcat(ro1,took1);
+    }
+
+    took1=strtok(NULL,"/");
+    contersaved1++;
+}
+struct savedirandfile khatha1[100];
+int counterkhat1=0;
+int shom1=0;
+int tokhat1=0;
+//printf("%s\n",ro1);
+FILE* ptr1=fopen(ro1,"r");
+//printf("%s",ro1);
+if(ptr1==NULL){
+    printf("file 2 ro nadarim\n");
+    return ;
+}
+
+khatha1[0].saved=(char *)malloc(1000*sizeof(char));
+char c1;
+while(1){
+    c1=fgetc(ptr1);
+    if(c1=='\n'){
+            *(khatha1[counterkhat1].saved+tokhat1)='\0';
+        counterkhat1++;
+        shom1++;
+        khatha1[shom1].saved=(char *)malloc(1000*sizeof(char));
+        tokhat1=0;
+        continue;
+
+    }
+    if(c1==EOF){
+             *(khatha1[counterkhat1].saved+tokhat1)='\0';
+             counterkhat1++;
+        break;}
+
+    *(khatha1[counterkhat1].saved+tokhat1)=c1;
+    tokhat1++;
+}fclose(ptr1);
+if(shom==shom1){
+for(int i=0;i<=shom;i++){
+
+    if(strcmp(khatha1[i].saved,khatha[i].saved)!=0){
+        printf("\n========#%d========\n",i+1);
+        printf("%s\n",khatha[i].saved);
+        printf("%s\n",khatha1[i].saved);
+    }
+}
+}
+else{
+    if(shom>shom1){
+        for(int i=0;i<=shom1;i++){
+
+    if(strcmp(khatha1[i].saved,khatha[i].saved)!=0){
+        printf("\n========#%d========\n",i+1);
+        printf("%s\n",khatha[i].saved);
+        printf("%s\n",khatha1[i].saved);
+    }
+    }
+     printf("\n>>>>>>>>>>> #%d - #%d>>>>>>>>>>>>\n",shom1+2,shom+1);
+    for(int i=shom1+1;i<=shom;i++){
+       printf("%s\n",khatha[i].saved);
+    }
+    }
+    if(shom<shom1){
+        for(int i=0;i<=shom;i++){
+
+    if(strcmp(khatha1[i].saved,khatha[i].saved)!=0){
+        printf("\n========#%d========\n",i+1);
+        printf("%s\n",khatha[i].saved);
+        printf("%s\n",khatha1[i].saved);
+    }
+    }
+     printf("\n>>>>>>>>>>> #%d - #%d>>>>>>>>>>>>\n",shom+2,shom1+1);
+    for(int i=shom+1;i<=shom1;i++){
+       printf("%s\n",khatha1[i].saved);
+    }
+    }
+}
+}
+void tree(char *basePath, const int deph,int mpi)
+{
+    int i;
+    char path[1000];
+    struct dirent *dp;
+    DIR *dir = opendir(basePath);
+
+    if (!dir)
+        return;
+
+    while ((dp = readdir(dir)) != NULL)
+    {
+        if (strcmp(dp->d_name, ".") != 0 && strcmp(dp->d_name, "..") != 0)
+        {
+            for (i=0; i<deph; i++)
+            {
+                if (i%2 == 0 || i == 0)
+                    printf("%c", 179);
+                else
+                    printf(" ");
+
+            }
+
+            printf("%c%c%s\n", 195, 196, dp->d_name);
+
+            strcpy(path, basePath);
+            strcat(path, "/");
+            strcat(path, dp->d_name);
+             if(2*mpi>deph)
+            tree(path, deph + 2,mpi);
+        }
+    }
+
+    closedir(dir);
+}
+
 int main(){
 char vorodi[1500];
 char* past=(char *)malloc(100000*sizeof(char));
 while(1){
 scanf("%s",vorodi);
+
 if(strcmp(vorodi,"crf")==0){
 char yoi[10];
 scanf("%s",yoi);
@@ -2517,7 +3094,7 @@ if(strcmp(yoi,"--file")==0)
 else
     printf("invalid input");
 }
-else if(strcmp(vorodi,"paststr")==0){
+else if(strcmp(vorodi,"pastestr")==0){
  char yoi[10];
 scanf("%s",yoi);
 
@@ -2548,8 +3125,102 @@ else if(strcmp(vorodi,"grep")==0){
   getgrep();
 
 }
+else if(strcmp(vorodi,"undo")==0){
+    undo();
+}
+else if(strcmp(vorodi,"auto-indent")==0){
+    indghozari();}
+else if(strcmp(vorodi,"compare")==0){
+    char a[2000];
+
+int io=1;
+getchar();
+scanf("%c",&a[0]);
+char op[10000];
+for(int i=0;i<10000;i++)
+    op[i]='\0';
+if(a[0]=='"'){
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]=='"')
+            break;
+        io++;
+    }
+    for(int i=1;i<io;i++)
+        op[i-1]=a[i];
+        op[io-1]='\0';
+getchar();
+
+}
+else if(a[0]=='r'){
+
+
+    while(1){
+       scanf("%c",&a[io]);
+        if(a[io]=='\n'||a[io]==' '){
+            break;
+            }
+        io++;
+    }
+
+    for(int i=0;i<io;i++)
+        op[i]=a[i];
+}
+  char a1[2000];
+
+int io1=1;
+
+scanf("%c",&a1[0]);
+char op1[10000];
+for(int i=0;i<10000;i++)
+    op1[i]='\0';
+if(a1[0]=='"'){
+
+    while(1){
+       scanf("%c",&a1[io1]);
+        if(a1[io1]=='"')
+            break;
+        io1++;
+    }
+    for(int i=1;i<io1;i++)
+        op1[i-1]=a1[i];
+        op1[io-1]='\0';
+getchar();
+
+}
+else if(a1[0]=='r'){
+
+
+    while(1){
+       scanf("%c",&a1[io1]);
+        if(a1[io1]=='\n'||a1[io1]==' '){
+            break;
+            }
+        io1++;
+    }
+
+    for(int i=0;i<io1;i++)
+        op1[i]=a1[i];
+}
+printf("%s %s\n",op,op1);
+textcomparator(op,op1);
+}
+else if(strcmp(vorodi,"tree")==0){
+    int poe;
+    scanf("%d",&poe);
+    if(poe<-1)
+        printf("valid nist\n");
+    else if(poe==-1)
+        tree(root,0,25);
+    else
+        tree(root,0,poe);
+}
 else if(strcmp(vorodi,"exit")==0){
-    break;}}
+    break;}
+else
+    printf("in dastor vojod nadard\n");
+}
 return 0;
 
 
